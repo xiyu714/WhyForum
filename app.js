@@ -19,11 +19,9 @@ app.use(session({
   key: settings.db, //bookie name
   cookie: {maxAge: 1000*60*60*24*30},   //30 days
   store: new MongoStore({
-    // db: settings.db,
-    // host: settings.host,
-    // port: settings.port,
-    url: 'mongodb://localhost:27017/test'
-  })
+    url: 'mongodb://localhost:27017/blog'
+  })    //session是一个存储用户信息的组件
+        //相当于用户客户端key,用户服务端value
 }))
 
 // view engine setup

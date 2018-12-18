@@ -6,7 +6,12 @@ var crypto = require('crypto'),   //crypto是Node.js的一个核心模块，用�
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', {
+     title: '主页',
+     user: req.session.user,
+     success: req.flash('success').toString(),
+     error: req.flash('error').toString()
+   });
 });
 
 router.get('/login', function(req, res, next) {
@@ -14,7 +19,12 @@ router.get('/login', function(req, res, next) {
 })
 
 router.get('/reg', function(req, res, next) {
-  res.render('reg', { title: 'myblog'});
+  res.render('reg', {
+     title: '注册',
+     user: req.session.user,
+     success: req.flash('success').toString(),
+     error: req.flash('error').toString()
+   });
 })
 
 
