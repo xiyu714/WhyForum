@@ -44,17 +44,25 @@ router.post('/reg', function(req, res) {
     })
 
     //f 检测用户是否存在
-    newUser.get(()=>{})
-
-    //存储用户
-    newUser.save((err, result)=> {
-      if (err){
-        console.log('存储用户失败');
-        res.redirect('/reg')
+    newUser.check(function(valid) {
+        //存储用户
+        if(valid) {
+        newUser.save(function(err, result){
+          if (err){
+            console.log('存储用户失败');
+            res.redirect('/reg')
+          } else {
+            console.log('存储用户成功')
+            req.session.user = result;
+            req.flash('success', '注册成功！');
+            res.redirect('/')
+          }
+        });
+      }else {
+        req.flash('error', '用户已存在')
+        res.redirect('/reg');
       }
-      console.log('存储用户成功')
-      res.redirect('/')
-    });
+  })
 })
 
 module.exports = router;
