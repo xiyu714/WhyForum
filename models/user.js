@@ -55,7 +55,7 @@ User.prototype.save = function(callback) {
     name: this.name,
     password: this.password,
     email: this.email
-};
+  };
   Mongpromise.then((client) => {
     db = client.db('blog');
     db.collection('users', function (err, collection) {
@@ -71,6 +71,7 @@ User.prototype.save = function(callback) {
          console.log('插入失败')
          return callback(err);//错误，返回 err 信息
        }
+       console.log('成功存入一个新用户')
        callback(null, user[0]);//成功！err 为 null，并返回存储后的用户文档
      });
    });
@@ -98,7 +99,7 @@ User.prototype.save = function(callback) {
 //     });
 // };
 
-User.get = function(name, callback) {
+User.prototype.get = function(callback) {
   Mongpromise.then((mongodb) => {
     db = mongodb.db('blog');
     db.collection('users', function(err, collection) {
@@ -109,13 +110,14 @@ User.get = function(name, callback) {
       }
       //查找用户名（name键）值为 name 一个文档
       collection.findOne({
-        name: name
+        name: this.name
       }, function (err, user) {
         mongodb.close();
         if (err) {
           console.log('get错误')
           return callback(err);//失败！返回 err 信息
         }
+        console.log('找到数据')
         callback(null, user);//成功！返回查询的用户信息
       });
     })

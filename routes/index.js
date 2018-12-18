@@ -17,43 +17,72 @@ router.get('/reg', function(req, res, next) {
   res.render('reg', { title: 'myblog'});
 })
 
-router.post('/reg', function (req, res) {
+// router.post('/reg', function (req, res) {
+//   var name = req.body.name,
+//     password = req.body.password,
+//     password_re = req.body['password-repeat'];
+//     //检验用户两次输入的密码是否一致
+//     if (password_re != password) {
+//       req.flash('error', '两次输入的密码不一致！');
+//       return res.redirect('/reg');  //返回注册页
+//     }
+//     //生成密码的md5值
+//     var md5 = crypto.createHash('md5'),
+//       password = md5.update(req.body.password).digest('hex'); //update什么意思?
+//     var newUser = new User({
+//       name: name,
+//       password: password,
+//       email: req.body.email
+//     });
+//
+//     //检测用户名是否已经存在
+//     User.get(newUser.name, function(err, user) {
+//       if (err) {
+//         req.flash('error', '用户已经存在！');
+//         console.log('error', '用户已经存在！')
+//         return res.redirect('/reg');
+//       }
+//       newUser.save(function (err, user) {
+//         if (err) {
+//           req.flash('error', err);
+//           console.log('注册失败');
+//           return res.redirect('/reg')
+//         }
+//         req.session.user = user;
+//         req.flash('success', '注册成功！');
+//         res.redirect('/');
+//       })
+//     })
+//
+// })
+
+router.post('/reg', function(req, res) {
   var name = req.body.name,
     password = req.body.password,
-    password_re = req.body['password-repeat'];
-    //检验用户两次输入的密码是否一致
-    if (password_re != password) {
-      req.flash('error', '两次输入的密码不一致！');
-      return res.redirect('/reg');  //返回注册页
-    }
-    //生成密码的md5值
-    var md5 = crypto.createHash('md5'),
-      password = md5.update(req.body.password).digest('hex'); //update什么意思?
+    password_re = req.body['password-re'];
+    //f 检测用户两次输入密码
+
+    //f 生成密码的md5值
+
+    // 创建用户对象
     var newUser = new User({
       name: name,
       password: password,
       email: req.body.email
-    });
-
-    //检测用户名是否已经存在
-    User.get(newUser.name, function(err, user) {
-      if (err) {
-        req.flash('error', '用户已经存在！');
-        console.log('error', '用户已经存在！')
-        return res.redirect('/reg');
-      }
-      newUser.save(function (err, user) {
-        if (err) {
-          req.flash('error', err);
-          console.log('注册失败');
-          return res.redirect('/reg')
-        }
-        req.session.user = user;
-        req.flash('success', '注册成功！');
-        res.redirect('/');
-      })
     })
 
+    //f 检测用户是否存在
+    newUser.get(()=>{})
+
+    //存储用户
+    newUser.save((err, result)=> {
+      if (err){
+        console.log('存储用户失败');
+        res.redirect('/reg')
+      }
+      console.log('存储用户成功')
+      res.redirect('/')
+    });
 })
 
 module.exports = router;
