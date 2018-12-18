@@ -62,7 +62,9 @@ User.prototype.get = function(callback) {
           console.log('get错误')
           return callback(err);//失败！返回 err 信息
         }
-        console.log('找到数据')
+        if(user){
+            console.log('找到数据')   //我犯了一个错误，将err当作指示是否找到
+        }
         callback(null, user);//成功！返回查询的用户信息
       });
     })
