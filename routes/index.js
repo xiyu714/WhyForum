@@ -39,11 +39,13 @@ router.post('/reg', function (req, res) {
     User.get(newUser.name, function(err, user) {
       if (err) {
         req.flash('error', '用户已经存在！');
+        console.log('error', '用户已经存在！')
         return res.redirect('/reg');
       }
       newUser.save(function (err, user) {
         if (err) {
           req.flash('error', err);
+          console.log('注册失败');
           return res.redirect('/reg')
         }
         req.session.user = user;
