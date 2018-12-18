@@ -64,11 +64,10 @@ User.prototype.save = function(callback) {
        return callback(err);//错误，返回 err 信息
      }
      //将用户数据插入 users 集合
-     collection.insert(user, {
-       safe: true
-     }, function (err, user) {
+     collection.insertOne(user,function (err, result) {
        client.close();
        if (err) {
+         console.log(user)
          console.log('插入失败')
          return callback(err);//错误，返回 err 信息
        }
@@ -105,6 +104,7 @@ User.get = function(name, callback) {
     db.collection('users', function(err, collection) {
       if (err) {
         mongodb.close();
+        console.log('get 错误')
         return callback(err);//错误，返回 err 信息
       }
       //查找用户名（name键）值为 name 一个文档
@@ -113,6 +113,7 @@ User.get = function(name, callback) {
       }, function (err, user) {
         mongodb.close();
         if (err) {
+          console.log('get错误')
           return callback(err);//失败！返回 err 信息
         }
         callback(null, user);//成功！返回查询的用户信息

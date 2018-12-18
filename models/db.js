@@ -1,3 +1,7 @@
+/*
+  暂时舍弃使用
+*/
+
 var settings = require('../settings'),
   Db = require('mongodb').Db,
   Connection = require('mongodb').Connection,
