@@ -58,7 +58,7 @@ router.post('/reg', function(req, res) {
             res.redirect('/reg')
           } else {
             console.log('存储用户成功')
-            req.session.user = result;
+            req.session.user = result;  //我怀疑result有问题
             req.flash('success', '注册成功！');
             res.redirect('/')
           }
@@ -92,5 +92,13 @@ router.post('/login', function (req, res) {
     res.redirect('/');//登陆成功后跳转到主页
   });
 });
+
+router.get('/logout', function(req, res) {
+  req.session.user = null;
+  req.flash('success', '登出成功!');
+  res.redirect('/');
+})
+
+
 
 module.exports = router;
