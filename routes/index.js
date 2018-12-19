@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
    });
 });
 
+ router.get('/login', checkNotLogin);
 router.get('/login', function(req, res, next) {
   res.render('login', {
     title: 'login',
@@ -23,6 +24,7 @@ router.get('/login', function(req, res, next) {
   });
 })
 
+router.get('/reg', checkNotLogin);
 router.get('/reg', function(req, res, next) {
   res.render('reg', {
      title: '注册',
@@ -32,7 +34,7 @@ router.get('/reg', function(req, res, next) {
    });
 })
 
-
+router.post('/reg', checkNotLogin);
 router.post('/reg', function(req, res) {
   var name = req.body.name,
     password = req.body.password,
@@ -70,6 +72,7 @@ router.post('/reg', function(req, res) {
   })
 })
 
+router.post('/login', checkNotLogin)
 router.post('/login', function (req, res) {
   //生成密码的 md5 值
   // var md5 = crypto.createHash('md5'),
@@ -99,6 +102,35 @@ router.get('/logout', function(req, res) {
   res.redirect('/');
 })
 
+router.get('/post', checkLogin);
+router.get('/post', function (req, res) {
+  res.render('post', {
+    title: '发表',
+    user: req.session.user,
+    success: req.flash('success').toString(),
+    error: req.flash('error').toString()
+  });
+});
+
+router.post('/post', checkLogin);
+router.post('/post', function (req, res) {
+});
+
+function checkLogin(req, res, next) {
+  if(!req.session.user) {
+    req.flash('error', '未登录')
+    res.redirect('/login');
+  }
+  next();
+}
+
+function checkNotLogin(req, res, next) {
+  if (req.session.user) {
+    req.flash('error', '已登录！');
+    res.redirect('back'); //返回之前的页面
+  }
+  next();
+}
 
 
 module.exports = router;
