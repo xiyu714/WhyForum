@@ -2,16 +2,24 @@ var express = require('express');
 var router = express.Router();
 
 var crypto = require('crypto'),   //crypto是Node.js的一个核心模块，用它生成散列值来加密密码
-  User = require('../models/user.js');
+  User = require('../models/user.js'),
+  Post = require('../models/post.js')
+  ;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-     title: '主页',
-     user: req.session.user,
-     success: req.flash('success').toString(),
-     error: req.flash('error').toString()
-   });
+  Post.get(null, function (err, posts) {
+    if (err) {
+      posts = [];
+    }
+    res.render('index', {
+      title: '主页',
+      user: req.session.user,
+      posts: posts,
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString()
+    })
+  })
 });
 
  router.get('/login', checkNotLogin);
@@ -114,6 +122,16 @@ router.get('/post', function (req, res) {
 
 router.post('/post', checkLogin);
 router.post('/post', function (req, res) {
+  var currentUser = req.session.user,
+    post = new Post(currentUser.name, req.body.title, req.body.post);
+  post.save(function(err) {
+    if (err) {
+      req.flash('error', err);
+      return res.redirect('/')
+    }
+    req.flash('success', '发表成功！');
+    res.redirect('/');
+  })
 });
 
 function checkLogin(req, res, next) {
