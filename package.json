@@ -15,6 +15,7 @@
     "mongodb": "latest",
     "express-session": "latest",
     "connect-mongo": "latest",
-    "connect-flash": "latest"
+    "connect-flash": "latest",
+    "markdown-it": "latest"
   }
 }

@@ -3,7 +3,8 @@ var router = express.Router();
 
 var crypto = require('crypto'),   //crypto是Node.js的一个核心模块，用它生成散列值来加密密码
   User = require('../models/user.js'),
-  Post = require('../models/post.js')
+  Post = require('../models/post.js'),
+  md = require('markdown-it')()
   ;
 
 /* GET home page. */
@@ -123,7 +124,7 @@ router.get('/post', function (req, res) {
 router.post('/post', checkLogin);
 router.post('/post', function (req, res) {
   var currentUser = req.session.user,
-    post = new Post(currentUser.name, req.body.title, req.body.post);
+    post = new Post(currentUser.name, req.body.title, md.render(req.body.post));
   post.save(function(err) {
     if (err) {
       req.flash('error', err);
