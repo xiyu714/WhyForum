@@ -1,5 +1,15 @@
 var mongodbClientPromise = require('./db');
 
+//------------mssql
+const mssql = require('mssql');
+const config = {
+  user: 'sa',
+  password: 'xiyu',
+  server: 'localhost',
+  database: 'forum',
+  port: 1443
+}
+
 function Post(name, title, post) {
   this.name = name;
   this.title = title;

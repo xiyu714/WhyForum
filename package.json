@@ -16,6 +16,7 @@
     "express-session": "latest",
     "connect-mssql": "latest",
     "connect-flash": "latest",
-    "markdown-it": "latest"
+    "markdown-it": "latest",
+    "mssql": "latest"
   }
 }
