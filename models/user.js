@@ -1,5 +1,8 @@
 var mongodb = require('./db');
 
+const poolPromise = require('./mssqlDb').poolPromise;
+const mssql = require('./mssqlDb').mssql;
+
 function User(user) {
   this.name = user.name;
   this.password = user.password;
@@ -73,25 +76,40 @@ User.prototype.check = function(callback) {
   })
 }
 
+// User.get = function(name, callback) {
+//   Mongpromise.then(function(mongodb){
+//     db = mongodb.db('blog');
+//     db.collection('users', function(err, collection) {
+//       if (err) {
+//         mongodb.close();
+//         console.log('get 错误')
+//         return callback(err);//错误，返回 err 信息
+//       }
+//       //查找用户名（name键）值为 name 一个文档
+//       collection.findOne({
+//         name: name
+//       }, function (err, user) {
+//         if(err) {
+//             console.log(err)
+//         } else{
+//             callback(err, user);
+//         }
+//       });
+//     })
+//   })
+// }
+
 User.get = function(name, callback) {
-  Mongpromise.then(function(mongodb){
-    db = mongodb.db('blog');
-    db.collection('users', function(err, collection) {
-      if (err) {
-        mongodb.close();
-        console.log('get 错误')
-        return callback(err);//错误，返回 err 信息
-      }
-      //查找用户名（name键）值为 name 一个文档
-      collection.findOne({
-        name: name
-      }, function (err, user) {
-        if(err) {
-            console.log(err)
-        } else{
-            callback(err, user);
-        }
-      });
+  // if(!suser) {
+  //   return callback(true);
+  // }
+  // var name = suser.name;
+  poolPromise.then(function(pool) {
+    pool.request()
+    .input('name', mssql.NChar, name)
+    .query('select * from users where name=@name')
+    .then(function(recordset) {
+      callback(null, recordset.recordset[0]);
     })
   })
 }
