@@ -38,8 +38,6 @@ Post.prototype.save = function(callback) {
     post: this.post
   };
   //使用mssql存储
-  console.log('这里值了吧')
-  console.log(poolPromise)
   poolPromise.then(function(pool) {
     pool.request()
       .input('name', mssql.NChar, post.name)
@@ -47,63 +45,17 @@ Post.prototype.save = function(callback) {
       .input('content', mssql.NText, post.post)
       .query('insert into posts(Title, Content, AuthorName, CreateDate, LastDate) values(@title, @content, @name, getdate(), getdate())')
       .then(function(result){
-        console.log(result)
-        console.log('执行了吗');
+        callback(null);
       })
   })
-
-
-  //打开数据库
-  mongodbClientPromise.then(function(client) {
-    var db = client.db('blog');
-    db.collection('posts', function(err, collection) {
-      if (err) {
-        callback(err)
-      } else {
-        collection.insert(post, {
-          safe: true
-        }, function (err) {
-          if(err) {
-            callback(err);
-          } else {
-            callback(null);
-          }
-        })
-      }
-    })
-  })
-
 }
 
 Post.get = function(name, callback) {
-  //打开数据库
-  // mongodbClientPromise.then(function(client) {
-  //   var db = client.db('blog');
-  //   db.collection('posts', function(err, collection) {
-  //     if (err) {
-  //       callback(err)
-  //     } else {
-  //       var query = {};
-  //       if (name) {
-  //         query.name = name;
-  //       }
-  //       collection.find(query).sort({
-  //         time: -1
-  //       }).toArray(function (err, docs) {
-  //         if(err) {
-  //           callback(err);
-  //         } else {
-  //           callback(null, docs);
-  //         }
-  //       })
-  //     }
-  //   })
-  // })
   poolPromise.then(function(pool) {
     pool.request()
-    .query('select * from posts order by CreateDate desc')
+    .input('name', mssql.NChar, name)
+    .query('select * from posts where AuthorName=@name order by CreateDate desc')
     .then(function(recordset) {
-      console.dir(recordset);
       callback(null, recordset.recordset);
     })
     .catch(function(err) {

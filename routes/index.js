@@ -9,7 +9,7 @@ var crypto = require('crypto'),   //crypto是Node.js的一个核心模块，用�
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  Post.get(null, function (err, posts) {
+  Post.get(req.session.user.name, function (err, posts) {
     if (err) {
       posts = [];
     }
