@@ -101,7 +101,7 @@ Post.get = function(name, callback) {
   // })
   poolPromise.then(function(pool) {
     pool.request()
-    .query('select * from posts')
+    .query('select * from posts order by CreateDate desc')
     .then(function(recordset) {
       console.dir(recordset);
       callback(null, recordset.recordset);
