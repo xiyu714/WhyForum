@@ -10,7 +10,15 @@ var flash = require('connect-flash');
 var usersRouter = require('./routes/users');
 
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session); //这个是什么意思
+var MSSQLStore = require('connect-mssql')(session);
+
+var config = {
+  user: 'sa',
+  password: 'xiyu',
+  server: 'localhost',
+  port: 1443,
+  database: 'forum'
+}
 
 var app = express();
 
@@ -18,9 +26,7 @@ app.use(session({
   secret: settings.cookieSecret,
   key: settings.db, //bookie name
   cookie: {maxAge: 1000*60*60*24*30},   //30 days
-  store: new MongoStore({
-    url: 'mongodb://localhost:27017/blog'
-  })    //session是一个存储用户信息的组件
+  store: new MSSQLStore(config)
         //相当于用户客户端key,用户服务端value
 }))
 

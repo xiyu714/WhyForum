@@ -14,7 +14,7 @@
     "morgan": "~1.9.0",
     "mongodb": "latest",
     "express-session": "latest",
-    "connect-mongo": "latest",
+    "connect-mssql": "latest",
     "connect-flash": "latest",
     "markdown-it": "latest"
   }
