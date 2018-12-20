@@ -1,15 +1,6 @@
-var mongodbClientPromise = require('./db');
-
 //------------mssql
-const mssql = require('mssql');
-const config = {
-  user: 'sa',
-  password: 'xiyu',
-  server: 'localhost',
-  database: 'luntan',
-  port: 1443
-}
-var poolPromise = mssql.connect(config);
+const poolPromise = require('./mssqlDb').poolPromise;
+const mssql = require('./mssqlDb').mssql;
 
 function Post(name, title, post) {
   this.name = name;

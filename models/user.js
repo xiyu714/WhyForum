@@ -1,18 +1,5 @@
 var mongodb = require('./db');
 
-// //------------mssql
-// const mssql = require('mssql');
-// const config = {
-//   user: 'sa',
-//   password: 'xiyu',
-//   server: 'localhost',
-//   database: 'forum',
-//   port: 1443
-// }
-//
-// poolPromise = mssql.connect(config);
-
-
 function User(user) {
   this.name = user.name;
   this.password = user.password;
