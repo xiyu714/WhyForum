@@ -41,7 +41,8 @@ Post.prototype.save = function(callback) {
   })
 }
 
-Post.get = function(name, callback) {
+Post.get = function(user, callback) {
+  var name = user.name;
   poolPromise.then(function(pool) {
     pool.request()
     .input('name', mssql.NChar, name)
