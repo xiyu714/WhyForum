@@ -19,33 +19,50 @@ var url = 'mongodb://localhost:27017';
 
 var Mongpromise = MongoClient.connect(url, {useNewUrlParser: true});
 
+// User.prototype.save = function(callback) {
+//   var user = {
+//     name: this.name,
+//     password: this.password,
+//     email: this.email
+//   };
+//   Mongpromise.then(function(client){
+//     db = client.db('blog');
+//     db.collection('users', function (err, collection) {
+//      if (err) {
+//        client.close();
+//        console.log('运行呢吗？')
+//        return callback(err);//错误，返回 err 信息
+//      }
+//      //将用户数据插入 users 集合
+//      collection.insertOne(user,function (err, result) {
+//       client.close();
+//        if (err) {
+//          console.log(user)
+//          console.log('插入失败')
+//          console.log(err)
+//          return callback(err);//错误，返回 err 信息
+//        }
+//        console.log('成功存入一个新用户')
+//        callback(null, user[0]);//成功！err 为 null，并返回存储后的用户文档
+//      });
+//    });
+//   })
+// }
+
 User.prototype.save = function(callback) {
-  var user = {
-    name: this.name,
-    password: this.password,
-    email: this.email
-  };
-  Mongpromise.then(function(client){
-    db = client.db('blog');
-    db.collection('users', function (err, collection) {
-     if (err) {
-       client.close();
-       console.log('运行呢吗？')
-       return callback(err);//错误，返回 err 信息
-     }
-     //将用户数据插入 users 集合
-     collection.insertOne(user,function (err, result) {
-      client.close();
-       if (err) {
-         console.log(user)
-         console.log('插入失败')
-         console.log(err)
-         return callback(err);//错误，返回 err 信息
-       }
-       console.log('成功存入一个新用户')
-       callback(null, user[0]);//成功！err 为 null，并返回存储后的用户文档
-     });
-   });
+  console.log('这是', this)
+  poolPromise.then(function(pool) {
+    pool.request()
+    .input('name', mssql.NChar, this.name)
+    .input('password', mssql.NVarChar, this.password)
+    .input('email', mssql.Char, this.email)
+    .query('insert into users(name, password, email) values(@name, @password, @email)')
+    .then(function(result) {
+        callback(result)
+    })
+    .catch(function(err){
+      console.log(err)
+    })
   })
 }
 
