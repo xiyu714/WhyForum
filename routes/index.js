@@ -58,27 +58,6 @@ router.post('/reg', function(req, res) {
       password: password,
       email: req.body.email
     })
-
-  //   //f 检测用户是否存在
-  //   newUser.check(function(valid) {
-  //       //存储用户
-  //       if(valid) {
-  //       newUser.save(function(err, result){
-  //         if (err){
-  //           console.log('存储用户失败');
-  //           res.redirect('/reg')
-  //         } else {
-  //           console.log('存储用户成功')
-  //           req.session.user = result;  //我怀疑result有问题
-  //           req.flash('success', '注册成功！');
-  //           res.redirect('/')
-  //         }
-  //       });
-  //     }else {
-  //       req.flash('error', '用户已存在')
-  //       res.redirect('/reg');
-  //     }
-  // })
   // 检测用户是否存在
   User.get(newUser.name, function(err, result) {
     if(result) {

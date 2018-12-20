@@ -50,12 +50,12 @@ var Mongpromise = MongoClient.connect(url, {useNewUrlParser: true});
 // }
 
 User.prototype.save = function(callback) {
-  console.log('这是', this)
+  var name = this.name, password = this.password, email = this.email;
   poolPromise.then(function(pool) {
     pool.request()
-    .input('name', mssql.NChar, this.name)
-    .input('password', mssql.NVarChar, this.password)
-    .input('email', mssql.Char, this.email)
+    .input('name', mssql.NChar, name)
+    .input('password', mssql.NVarChar, password)
+    .input('email', mssql.Char, email)
     .query('insert into users(name, password, email) values(@name, @password, @email)')
     .then(function(result) {
         callback(result)
