@@ -42,9 +42,9 @@ Post.prototype.save = function(callback) {
   console.log(poolPromise)
   poolPromise.then(function(pool) {
     pool.request()
-      .input('name', mssql.Char, post.name)
-      .input('title', mssql.Char, post.title)
-      .input('content', mssql.Text, post.post)
+      .input('name', mssql.NChar, post.name)
+      .input('title', mssql.NChar, post.title)
+      .input('content', mssql.NText, post.post)
       .query('insert into posts(Title, Content, AuthorName, CreateDate, LastDate) values(@title, @content, @name, getdate(), getdate())')
       .then(function(result){
         console.log(result)
