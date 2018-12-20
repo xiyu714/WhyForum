@@ -6,10 +6,9 @@ const config = {
   user: 'sa',
   password: 'xiyu',
   server: 'localhost',
-  database: 'forum',
+  database: 'luntan',
   port: 1443
 }
-
 function Post(name, title, post) {
   this.name = name;
   this.title = title;
@@ -36,6 +35,21 @@ Post.prototype.save = function(callback) {
     title: this.title,
     post: this.post
   };
+  //使用mssql存储
+  console.log('这里值了吧')
+  var poolPromise = mssql.connect(config);
+  console.log(poolPromise)
+  poolPromise.then(function(pool) {
+    return pool.request()
+      .input('name', mssql.Char, post.name)
+      .input('title', mssql.Char, post.title)
+      .input('content', mssql.Text, post.post)
+      .query('insert into posts(Title, Content, AuthorName, CreateDate, LastDate) values(@title, @content, @name, getdate(), getdate())')
+  }).then(result => {
+    console.log(result)
+    console.log('执行了吗');
+  })
+
   //打开数据库
   mongodbClientPromise.then(function(client) {
     var db = client.db('blog');
@@ -55,6 +69,7 @@ Post.prototype.save = function(callback) {
       }
     })
   })
+
 }
 
 Post.get = function(name, callback) {
