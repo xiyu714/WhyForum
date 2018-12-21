@@ -26,7 +26,7 @@ Comment.get = function(title, callback) {
   poolPromise.then(function(pool) {
     pool.request()
     .input('title', mssql.NChar, title)
-    .query('select * from comments where Title=@title')
+    .query('select * from comments where Title=@title order by CreateDate')
     .then(function(recordset) {
       callback(recordset.recordset)
     })

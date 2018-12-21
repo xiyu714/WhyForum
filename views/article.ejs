@@ -6,6 +6,11 @@
   </p>
   <p><%- post.Content %></p>
 </div>
+<div class="comments">
+  <% comments.forEach(function (comment, index) { %>
+    <p><%- comment.Content %></p>
+  <% }) %>
+</div>
 <div class="post_comment">
   <form method="post">
     评论：<br />
