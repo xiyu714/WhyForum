@@ -1,6 +1,7 @@
 //------------mssql
 const poolPromise = require('./mssqlDb').poolPromise;
 const mssql = require('./mssqlDb').mssql;
+const Comment = require('./comment');
 
 function Post(name, title, post) {
   this.name = name;

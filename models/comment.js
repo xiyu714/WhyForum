@@ -21,3 +21,14 @@ Comment.prototype.save = function(callback) {
     })
   })
 }
+
+Comment.get = function(title, callback) {
+  poolPromise.then(function(pool) {
+    pool.request()
+    .input('title', mssql.NChar, title)
+    .query('select * from comments where Title=@title')
+    .then(function(recordset) {
+      callback(recordset.recordset)
+    })
+  })
+}
