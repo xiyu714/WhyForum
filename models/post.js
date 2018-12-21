@@ -48,8 +48,11 @@ Post.get = function(user, callback) {
   var name = user.name;
   poolPromise.then(function(pool) {
     pool.request()
-    .input('name', mssql.NChar, name)
-    .query('select * from posts where AuthorName=@name order by CreateDate desc')
+    // .input('name', mssql.NChar, name)
+    // .query('select * from posts where AuthorName=@name order by CreateDate desc')
+    //--显示特定用户的帖子
+    //显示所有用户的帖子
+    .query('select * from posts order by CreateDate desc')
     .then(function(recordset) {
       callback(null, recordset.recordset);
     })
