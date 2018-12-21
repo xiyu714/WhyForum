@@ -23,6 +23,28 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.get('/u/:name/:title', function (req, res) {
+  //获取article
+  Post.getByTitle(req.params.title, function (err, posts) {
+    if (err) {
+      req.flash('error', err);
+      return res.redirect('/');
+    }
+    //tiaoshi
+    console.log(req.params.title, 'fwo')
+    console.log(posts)
+    //渲染
+    res.render('article', {
+      title: req.params.title,
+      post: posts[0],
+      user: req.session.user,
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString()
+    })
+  })
+
+})
+
  router.get('/login', checkNotLogin);
 router.get('/login', function(req, res, next) {
   res.render('login', {

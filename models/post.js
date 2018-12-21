@@ -62,3 +62,18 @@ Post.get = function(user, callback) {
     })
   })
 }
+
+Post.getByTitle = function(title, callback) {
+  poolPromise.then(function(pool) {
+    pool.request()
+    .input('title', mssql.NChar, title)
+    .query('select * from posts where Title = @title')
+    .then(function(recordset) {
+      callback(null, recordset.recordset);
+    })
+    .catch(function(err) {
+      console.log(err);
+      callback(err);
+    })
+  })
+}
