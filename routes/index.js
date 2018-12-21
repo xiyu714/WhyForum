@@ -49,7 +49,8 @@ router.get('/u/:name/:title', function (req, res) {
 router.post('/u/:name/:title', function(req, res) {
   var comment = new Comment({
     title: req.params.title,
-    content: req.body.comment
+    content: req.body.comment,
+    name: req.session.user.name
   })
   comment.save(function() {
     res.redirect('back')

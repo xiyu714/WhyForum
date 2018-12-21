@@ -8,7 +8,13 @@
 </div>
 <div class="comments">
   <% comments.forEach(function (comment, index) { %>
-    <p><%- comment.Content %></p>
+    <div class="comment">
+      <p><%- comment.Content %></p>
+      <p class="info">
+        <a href="#"> <%= comment.Name %></a> |
+        日期: <%= comment.CreateDate %>
+      </p>
+    </div>
   <% }) %>
 </div>
 <div class="post_comment">

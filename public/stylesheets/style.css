@@ -9,3 +9,8 @@ article{font-size:16px;padding-top:.5em;}
 article a{color:#dd0000;text-decoration:none;}
 article a:hover{color:#333333;text-decoration:underline;}
 .info{font-size:14px;}
+
+.comment {
+  border-style: solid;
+  margin-top: 20px;
+}

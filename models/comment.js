@@ -4,6 +4,7 @@ const mssql = require('./mssqlDb').mssql;
 function Comment(comment) {
   this.title = comment.title;
   this.content = comment.content;
+  this.name = comment.name;
 }
 
 module.exports = Comment;
@@ -15,7 +16,8 @@ Comment.prototype.save = function(callback) {
     pool.request()
     .input('title', mssql.NChar, comment.title)
     .input('content', mssql.NText, comment.content)
-    .query('insert into comments values(@title, @content, getdate())')
+    .input('name', mssql.NChar, comment.name)
+    .query('insert into comments values(@title, @content, getdate(), @name)')
     .then(function(recordset) {
       return callback(recordset)
     })
