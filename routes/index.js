@@ -30,9 +30,6 @@ router.get('/u/:name/:title', function (req, res) {
       req.flash('error', err);
       return res.redirect('/');
     }
-    //tiaoshi
-    console.log(req.params.title, 'fwo')
-    console.log(posts)
     //渲染
     res.render('article', {
       title: req.params.title,
