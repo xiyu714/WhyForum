@@ -5,7 +5,7 @@ var crypto = require('crypto'),   //crypto是Node.js的一个核心模块，用�
   User = require('../models/user.js'),
   Post = require('../models/post.js'),
   md = require('markdown-it')(),
-  Comment = require('../models/comment.js')
+  Comment = require('../models/comment.js'),
   Reply = require('../models/reply.js')
   ;
 
