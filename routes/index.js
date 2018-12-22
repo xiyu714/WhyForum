@@ -46,7 +46,7 @@ router.get('/u/:name/:title', function (req, res) {
 })
 
 router.post('/u/:name/:title', function(req, res) {
-  if (!req.body.comment && !req.body.reply){
+  if (!req.body.comment){
     return res.redirect('back')
   }
   if (req.body.comment) {
@@ -62,6 +62,17 @@ router.post('/u/:name/:title', function(req, res) {
   console.log("comment", req.body.comment)
   console.log("reply", req.body.reply)
 })
+
+router.post('/u/:name/:title/:index', function(req, res) {
+  if (req.body.reply) {
+    console.log(req.body.reply);
+    return res.redirect('back')
+  } else {
+    console.log(req.body.reply);
+    return res.redirect('back')
+  }
+})
+
 
  router.get('/login', checkNotLogin);
 router.get('/login', function(req, res, next) {
