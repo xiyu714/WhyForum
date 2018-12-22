@@ -32,7 +32,6 @@ router.get('/u/:name/:title', function (req, res) {
       return res.redirect('/');
     }
     Comment.get(req.params.title, function(comments) {
-      console.log(comments)
       //渲染
       res.render('article', {
         title: req.params.title,
