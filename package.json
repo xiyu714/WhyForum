@@ -6,17 +6,18 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "connect-flash": "latest",
+    "connect-mssql": "latest",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
     "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "morgan": "~1.9.0",
-    "mongodb": "latest",
     "express-session": "latest",
-    "connect-mssql": "latest",
-    "connect-flash": "latest",
+    "http-errors": "~1.6.2",
     "markdown-it": "latest",
-    "mssql": "latest"
+    "mongodb": "latest",
+    "morgan": "~1.9.0",
+    "mssql": "latest",
+    "tent-css": "^1.4.3"
   }
 }
