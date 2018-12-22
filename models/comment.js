@@ -12,12 +12,14 @@ module.exports = Comment;
 Comment.prototype.save = function(callback) {
   var comment = new Comment(this);
   //console.log(comment);
+  var x = 1;
   poolPromise.then(function(pool) {
     pool.request()
     .input('title', mssql.NChar, comment.title)
     .input('content', mssql.NText, comment.content)
     .input('name', mssql.NChar, comment.name)
-    .query('insert into comments values(@title, @content, getdate(), @name)')
+    .input('x', mssql.Int, x)
+    .query('set @x = (select count(*) from comments where Title=@title) insert into comments values(@title, @content, getdate(), @name, @x)')
     .then(function(recordset) {
       return callback(recordset)
     })
