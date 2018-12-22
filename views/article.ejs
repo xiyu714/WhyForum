@@ -16,6 +16,7 @@
         <form method="post">
           <textarea name="reply" rows="8" cols="80" style="display:none"></textarea>
           <input type="button" class="reply" value="回复"/>
+          <input type="submit" value="发表" style="display:none"/>
         </form>
       </p>
     </div>
@@ -34,6 +35,17 @@
   buttons.forEach(function(button) {
     button.onclick = function() {
         console.log('click');
+        var textarea = button.previousSibling.previousSibling;  //会匹配其他文本类容
+        var submit = button.nextElementSibling;
+        if (textarea.style.display == "none"){
+          textarea.style.display = "block";
+          submit.style.display = "block";
+          button.value = "取消";
+        } else {
+          textarea.style.display = "none";
+          submit.style.display = "none";
+          button.value = "回复";
+        }
     }
   })
 </script>
