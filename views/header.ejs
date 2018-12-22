@@ -9,25 +9,30 @@
 </head>
 <body>
 
-<header class="masthead">
-  <h1><%= title %></h1>
-</header>
-
-<nav>
-<span><a title="主页" href="/">home</a></span>
-<% if (user) { %>
-  <span><a title="发表" href="/post">post</a></span>
-  <span><a title="登出" href="/logout">logout</a></span>
-<% } else { %>
-  <span><a title="登录" href="/login">login</a></span>
-  <span><a title="注册" href="/reg">register</a></span>
-<% } %>
-</nav>
-
-<% if (success) { %>
-  <div><%= success %></div>
-<% } %>
-<% if (error) { %>
-  <div><%= error %> </div>
-<% } %>
-<article>
+  <header class="masthead">
+    <h1>e-f I\O</h1>
+  </header>
+  <main class="mastcontent">
+    <div class="container">
+      <div class="grid">
+        <div class="grid__column--4">
+          <nav>
+          <span><a title="主页" href="/">home</a></span>
+          <% if (user) { %>
+            <span><a title="发表" href="/post">post</a></span>
+            <span><a title="登出" href="/logout">logout</a></span>
+          <% } else { %>
+            <span><a title="登录" href="/login">login</a></span>
+            <span><a title="注册" href="/reg">register</a></span>
+          <% } %>
+          </nav>
+        </div>
+        <div class="grid__column--8">
+          <% if (success) { %>
+            <div><%= success %></div>
+          <% } %>
+          <% if (error) { %>
+            <div><%= error %> </div>
+          <% } %>
+          <h1><%= title %></h1>
+          <article>
