@@ -46,14 +46,21 @@ router.get('/u/:name/:title', function (req, res) {
 })
 
 router.post('/u/:name/:title', function(req, res) {
-  var comment = new Comment({
-    title: req.params.title,
-    content: req.body.comment,
-    name: req.session.user.name
-  })
-  comment.save(function() {
-    res.redirect('back')
-  });
+  if (!req.body.comment && !req.body.reply){
+    return res.redirect('back')
+  }
+  if (req.body.comment) {
+    var comment = new Comment({
+      title: req.params.title,
+      content: req.body.comment,
+      name: req.session.user.name
+    })
+    comment.save(function() {
+      res.redirect('back')
+    });
+  }
+  console.log("comment", req.body.comment)
+  console.log("reply", req.body.reply)
 })
 
  router.get('/login', checkNotLogin);
