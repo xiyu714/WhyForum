@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <title>Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="/stylesheets/tent.min.css" rel="stylesheet">
+  <link href="/stylesheets/tent.min.css" rel="stylesheet">
+  <link href="/stylesheets/myStyle.css" rel="stylesheet">
   <link rel="icon" href="/favicon.png">
 </head>
 <body>
@@ -15,19 +16,19 @@
   <main class="mastcontent">
     <div class="container">
       <div class="grid">
-        <div class="grid__column--4">
-          <nav>
-          <span><a title="主页" href="/">home</a></span>
+        <div class="grid__column--2">
+          <nav class="sidebar">
+          <a title="主页" href="/" class="type-italic display-block">home</a>
           <% if (user) { %>
-            <span><a title="发表" href="/post">post</a></span>
-            <span><a title="登出" href="/logout">logout</a></span>
+            <a title="发表" href="/post" class="type-italic display-block">post</a>
+            <a title="登出" href="/logout" class="type-italic display-block">logout</a>
           <% } else { %>
-            <span><a title="登录" href="/login">login</a></span>
-            <span><a title="注册" href="/reg">register</a></span>
+            <a title="登录" href="/login" class="type-italic display-block">login</a>
+            <a title="注册" href="/reg" class="type-italic display-block">register</a>
           <% } %>
           </nav>
         </div>
-        <div class="grid__column--8">
+        <div class="grid__column--10">
           <% if (success) { %>
             <div><%= success %></div>
           <% } %>
