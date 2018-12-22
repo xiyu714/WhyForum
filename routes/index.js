@@ -102,7 +102,7 @@ router.post('/reg', function(req, res) {
         console.log('存储用户成功')
         console.log(result)
         req.session.user = null;
-        req.flash('success', '注册成功！');
+        req.flash('success', '注册成功！请登录');
         res.redirect('/')
       })
     }
