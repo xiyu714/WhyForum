@@ -13,6 +13,10 @@
       <p class="info">
         <a href="#"> <%= comment.Name %></a> |
         日期: <%= comment.CreateDate %>
+        <form method="post">
+          <textarea name="reply" rows="8" cols="80" style="display:none"></textarea>
+          <input type="button" value="回复"/>
+        </form>
       </p>
     </div>
   <% }) %>
