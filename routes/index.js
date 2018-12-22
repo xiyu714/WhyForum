@@ -65,8 +65,6 @@ router.post('/u/:name/:title', function(req, res) {
       res.redirect('back')
     });
   }
-  console.log("comment", req.body.comment)
-  console.log("reply", req.body.reply)
 })
 
 router.post('/u/:name/:title/:index', function(req, res) {
