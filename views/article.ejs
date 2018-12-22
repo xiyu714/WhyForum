@@ -8,7 +8,7 @@
 </div>
 <div class="comments">
   <% comments.forEach(function (comment, index) { %>
-    <div class="comment">
+    <blockquote class="comment">
       <p><%- comment.Content %></p>
       <p class="info">
         <a href="#"> <%= comment.Name %></a> |
@@ -24,7 +24,7 @@
           <input type="submit" value="发表" style="display:none"/>
         </form>
       </p>
-    </div>
+    </blockquote>
   <% }) %>
 </div>
 <div class="post_comment">
