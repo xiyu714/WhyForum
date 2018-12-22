@@ -1,5 +1,6 @@
 const poolPromise = require('./mssqlDb').poolPromise;
 const mssql = require('./mssqlDb').mssql;
+const Reply = require('../models/reply.js');
 
 function Comment(comment) {
   this.title = comment.title;

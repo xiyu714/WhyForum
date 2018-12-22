@@ -17,11 +17,12 @@ reply.save = function(data, callback) {
   })
 }
 
-reply.get = function(title, callback) {
+reply.get = function(data, callback) {
   poolPromise.then(function(pool) {
     pool.request()
-    .input('title', mssql.NChar, title)
-    .query('select * from comments where Title=@title order by CreateDate')
+    //.input('index', mssql.Int, data.index)
+    .input('title', mssql.NChar, data.title)
+    .query('select * from reply where Title=@title order by CreateDate')
     .then(function(recordset) {
       callback(recordset.recordset)
     })
