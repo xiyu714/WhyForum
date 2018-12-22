@@ -22,7 +22,7 @@ reply.get = function(data, callback) {
     pool.request()
     //.input('index', mssql.Int, data.index)
     .input('title', mssql.NChar, data.title)
-    .query('select * from reply where Title=@title order by CreateDate')
+    .query('select * from replies where Title=@title order by CreateDate')
     .then(function(recordset) {
       callback(recordset.recordset)
     })

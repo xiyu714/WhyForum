@@ -34,13 +34,18 @@ router.get('/u/:name/:title', function (req, res) {
     }
     Comment.get(req.params.title, function(comments) {
       //渲染
-      res.render('article', {
-        title: req.params.title,
-        post: posts[0],
-        user: req.session.user,
-        comments: comments,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString()
+      Reply.get({
+        title: req.params.title
+      }, function(replies) {
+        res.render('article', {
+          title: req.params.title,
+          post: posts[0],
+          user: req.session.user,
+          replies: replies,
+          comments: comments,
+          success: req.flash('success').toString(),
+          error: req.flash('error').toString()
+        })
       })
     })
   })
