@@ -10,7 +10,7 @@ reply.save = function(data, callback) {
     .input('index', mssql.Int, data.index)
     .input('title', mssql.NChar, data.title)
     .input('content', mssql.NText, data.content)
-    .query('insert into replies values(@title, @content, getdate(), @name, @x)')
+    .query('insert into replies values(@index, @title, @content, getdate())')
     .then(function(recordset) {
       return callback(recordset)
     })

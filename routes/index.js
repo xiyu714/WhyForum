@@ -6,6 +6,7 @@ var crypto = require('crypto'),   //crypto是Node.js的一个核心模块，用�
   Post = require('../models/post.js'),
   md = require('markdown-it')(),
   Comment = require('../models/comment.js')
+  Reply = require('../models/reply.js')
   ;
 
 /* GET home page. */
@@ -64,12 +65,16 @@ router.post('/u/:name/:title', function(req, res) {
 })
 
 router.post('/u/:name/:title/:index', function(req, res) {
-  if (req.body.reply) {
-    console.log(req.body.reply);
+  if (!req.body.reply) {
     return res.redirect('back')
   } else {
-    console.log(req.body.reply);
-    return res.redirect('back')
+    Reply.save({
+      index: req.params.index,
+      title: req.params.title,
+      content: req.body.reply
+    }, function() {
+          return res.redirect('back')
+    })
   }
 })
 

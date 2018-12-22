@@ -13,7 +13,7 @@
       <p class="info">
         <a href="#"> <%= comment.Name %></a> |
         日期: <%= comment.CreateDate %>
-        <form method="post" action="./<%= index %>">
+        <form method="post" action="<%= title %>/<%= index %>">
           <textarea name="reply" rows="8" cols="80" style="display:none"></textarea>
           <input type="button" class="reply" value="回复"/>
           <input type="submit" value="发表" style="display:none"/>
