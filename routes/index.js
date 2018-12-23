@@ -33,6 +33,7 @@ router.get('/u/:name/:title', function (req, res) {
       return res.redirect('/');
     }
     posts[0].Content = md.render(posts[0].Content)
+    posts[0].CreateDate = posts[0].CreateDate.toString();
     Comment.get(req.params.title, function(comments) {
       //渲染
       Reply.get({
