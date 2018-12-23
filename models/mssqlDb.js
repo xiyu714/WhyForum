@@ -3,7 +3,7 @@ const config = {
   user: 'sa',
   password: 'xiyu',
   server: 'localhost',
-  database: 'luntan',
+  database: 'forum',
   port: 1443
 }
 exports.poolPromise = mssql.connect(config);
