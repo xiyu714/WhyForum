@@ -78,3 +78,18 @@ Post.getByTitle = function(title, callback) {
     })
   })
 }
+
+Post.deleteByTitle = function(title, callback) {
+  poolPromise.then(function(pool) {
+    pool.request()
+    .input('title', mssql.NChar, title)
+    .query('delete from posts where Title = @title')
+    .then(function(recordset) {
+      callback(null, recordset.recordset);
+    })
+    .catch(function(err) {
+      console.log(err);
+      callback(err);
+    })
+  })
+}

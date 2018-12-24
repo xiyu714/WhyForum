@@ -79,8 +79,9 @@ router.post('/u/:name/:title/:index', function(req, res) {
           return res.redirect('back')
     })
   } else if(req.body.delete){
-    console.log(req.body)
-    return res.redirect('back')
+    Post.deleteByTitle(req.params.title, function(){
+      res.redirect('/');
+    })
   } else if(req.body.alter){
     console.log(req.body)
     return res.redirect('back')
