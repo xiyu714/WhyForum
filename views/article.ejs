@@ -4,7 +4,12 @@
     <form class="post" action="<%= title %>/delete" method="post">
       作者：<a href="#"> <%= post.AuthorName %></a> |
       日期: <%= post.CreateDate.substring(0, 24) %>
-      <input type="button" value="删除">
+      <% if(post.AuthorName == user.name) {%>
+        <div style="display:inline">
+          <input type="button" value="删除">
+          <input type="button" value="修改">
+        </div>
+      <% } %>
     </form>
   </div>
   <p><%- post.Content %></p>
