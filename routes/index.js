@@ -70,9 +70,7 @@ router.post('/u/:name/:title', function(req, res) {
 })
 
 router.post('/u/:name/:title/:index', function(req, res) {
-  if (!req.body.reply) {
-    return res.redirect('back')
-  } else {
+  if (req.body.reply) {
     Reply.save({
       index: req.params.index,
       title: req.params.title,
@@ -80,7 +78,17 @@ router.post('/u/:name/:title/:index', function(req, res) {
     }, function() {
           return res.redirect('back')
     })
+  } else if(req.body.delete){
+    console.log(req.body)
+    return res.redirect('back')
+  } else if(req.body.alter){
+    console.log(req.body)
+    return res.redirect('back')
+  } else {
+    console.log('无法响应');
+    return res.redirect('back');
   }
+
 })
 
 
