@@ -83,8 +83,16 @@ router.post('/u/:name/:title/:index', function(req, res) {
       res.redirect('/');
     })
   } else if(req.body.alter){
-    console.log(req.body)
-    return res.redirect('back')
+    Post.getByTitle(req.params.title, function(err, posts) {
+      res.render('alterPost', {
+        post: posts[0],
+        title: '修改',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+      })
+    })
+
   } else {
     console.log('无法响应');
     return res.redirect('back');
