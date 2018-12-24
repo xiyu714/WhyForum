@@ -6,8 +6,8 @@
       日期: <%= post.CreateDate.substring(0, 24) %>
       <% if(post.AuthorName == user.name) {%>
         <div style="display:inline">
-          <input type="button" value="删除">
-          <input type="button" value="修改">
+          <input type="submit" value="删除">
+          <input type="submit" value="修改">
         </div>
       <% } %>
     </form>
