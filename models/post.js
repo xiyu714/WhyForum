@@ -93,3 +93,19 @@ Post.deleteByTitle = function(title, callback) {
     })
   })
 }
+
+Post.alterByTitle = function(title, content, callback) {
+  poolPromise.then(function(pool) {
+    pool.request()
+    .input('title', mssql.NChar, title)
+    .input('content', mssql.NText, content)
+    .query('update posts set Content = @content where Title = @title')
+    .then(function(recordset) {
+      callback(null, recordset.recordset);
+    })
+    .catch(function(err) {
+      console.log(err);
+      callback(err);
+    })
+  })
+}
