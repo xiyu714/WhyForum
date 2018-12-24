@@ -93,7 +93,11 @@ router.post('/u/:name/:title/:index', function(req, res) {
       })
     })
 
-  } else {
+  } else if(req.body.confirm) {
+    Post.alterByTitle(req.params.title, req.body.post, function(){
+      res.redirect(".")
+    })
+  }else {
     console.log('无法响应');
     return res.redirect('back');
   }
