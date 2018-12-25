@@ -26,31 +26,37 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/u/:name/:title', function (req, res) {
-  //获取article
-  Post.getByTitle(req.params.title, function (err, posts) {
-    if (err) {
-      req.flash('error', err);
-      return res.redirect('/');
-    }
-    posts[0].Content = md.render(posts[0].Content)
-    posts[0].CreateDate = posts[0].CreateDate.toString();
-    Comment.get(req.params.title, function(comments) {
-      //渲染
-      Reply.get({
-        title: req.params.title
-      }, function(replies) {
-        res.render('article', {
-          title: req.params.title,
-          post: posts[0],
-          user: req.session.user,
-          replies: replies,
-          comments: comments,
-          success: req.flash('success').toString(),
-          error: req.flash('error').toString()
+  if(req.session.user){
+    //获取article
+    Post.getByTitle(req.params.title, function (err, posts) {
+      if (err) {
+        req.flash('error', err);
+        return res.redirect('/');
+      }
+      posts[0].Content = md.render(posts[0].Content)
+      posts[0].CreateDate = posts[0].CreateDate.toString();
+      Comment.get(req.params.title, function(comments) {
+        //渲染
+        Reply.get({
+          title: req.params.title
+        }, function(replies) {
+          res.render('article', {
+            title: req.params.title,
+            post: posts[0],
+            user: req.session.user,
+            replies: replies,
+            comments: comments,
+            success: req.flash('success').toString(),
+            error: req.flash('error').toString()
+          })
         })
       })
     })
-  })
+  }else {
+    req.flash('error', '请登录或者注册');
+    return res.redirect('/')
+  }
+
 })
 
 router.post('/u/:name/:title', function(req, res) {
