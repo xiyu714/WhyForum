@@ -99,7 +99,7 @@ Post.alterByTitle = function(title, content, callback) {
     pool.request()
     .input('title', mssql.NChar, title)
     .input('content', mssql.NText, content)
-    .query('update posts set Content = @content where Title = @title')
+    .query('update posts set Content=@content, Title=@title, LastDate=getdate() where Title = @title')
     .then(function(recordset) {
       callback(null, recordset.recordset);
     })
