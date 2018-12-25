@@ -100,8 +100,8 @@ router.post('/u/:name/:title/:index', function(req, res) {
     })
 
   } else if(req.body.confirm) {
-    Post.alterByTitle(req.params.title, req.body.post, function(){
-      res.redirect("../"+req.params.title)
+    Post.alterByTitle(req.params.title, req.body.title, req.body.post, function(){
+      res.redirect("../"+req.body.title)
     })
   }else {
     console.log('无法响应');

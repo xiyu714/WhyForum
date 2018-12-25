@@ -94,12 +94,13 @@ Post.deleteByTitle = function(title, callback) {
   })
 }
 
-Post.alterByTitle = function(title, content, callback) {
+Post.alterByTitle = function(title, newTitle, content, callback) {
   poolPromise.then(function(pool) {
     pool.request()
     .input('title', mssql.NChar, title)
     .input('content', mssql.NText, content)
-    .query('update posts set Content=@content, Title=@title, LastDate=getdate() where Title = @title')
+    .input('newTitle', mssql.NChar, newTitle)
+    .query('update posts set Content=@content, Title=@newTitle, LastDate=getdate() where Title = @title')
     .then(function(recordset) {
       callback(null, recordset.recordset);
     })
