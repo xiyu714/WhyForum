@@ -53,7 +53,7 @@ Post.get = function(user, callback) {
     // .query('select * from posts where AuthorName=@name order by CreateDate desc')
     //--显示特定用户的帖子
     //显示所有用户的帖子
-    .query('select * from posts order by CreateDate desc')
+    .query('select * from posts order by LastDate desc')
     .then(function(recordset) {
       callback(null, recordset.recordset);
     })
