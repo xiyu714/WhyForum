@@ -43,10 +43,10 @@ Post.prototype.save = function(callback) {
 }
 
 Post.get = function(user, callback) {
-  if(!user) {
-    return callback(true);  //有错误
-  }
-  var name = user.name;
+  // if(!user) {   //检测是否用户登录
+  //   return callback(true);  //有错误
+  // }
+  // var name = user.name;
   poolPromise.then(function(pool) {
     pool.request()
     // .input('name', mssql.NChar, name)
