@@ -3,7 +3,7 @@
   <p><h2><a href="u/<%= post.AuthorName.trim() %>/<%= post.Title %>"><%= post.Title %></a></h2></p>
   <p class="info">
     作者: <a href="#"><%= post.AuthorName %></a> |
-    日期: <%= post.CreateDate %>
+    日期: <%= post.CreateDate.toString().substring(0, 24) %>
   </p>
 <% }) %>
 <%- include footer %>

@@ -20,7 +20,7 @@
       <p><%- comment.Content %></p>
       <p class="info">
         <a href="#"> <%= comment.Name %></a> |
-        日期: <%= comment.CreateDate %>
+        日期: <%= comment.CreateDate.toString().substring(0, 24) %>
         <% replies.forEach(function (reply, indexR) { %>
           <% if(index == reply.Index) { %>
             <p class="replyContent"><%- reply.Content %></p>
